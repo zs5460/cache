@@ -17,12 +17,10 @@ func TestGetSet(t *testing.T) {
 	hello, found := c.Get("Hello")
 
 	if !found {
-		t.Error("19")
 		t.FailNow()
 	}
 
 	if hello.(string) != "World" {
-		t.Error("24")
 		t.FailNow()
 	}
 
@@ -31,7 +29,6 @@ func TestGetSet(t *testing.T) {
 	_, found = c.Get("Hello")
 
 	if found {
-		t.Error("33")
 		t.FailNow()
 	}
 

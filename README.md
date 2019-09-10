@@ -33,6 +33,7 @@ func main() {
 ```
 
 ## Benchmark
+
 ```shell
 goos: windows
 goarch: amd64
