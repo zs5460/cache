@@ -29,13 +29,13 @@ c.Close()
 ## Benchmark
 
 ```shell
-goos: windows
+goos: linux
 goarch: amd64
 pkg: github.com/zs5460/cache
-BenchmarkNew-4      	  3000000	         560 ns/op	     368 B/op	       5 allocs/op
-BenchmarkGet-4      	 30000000	        36.1 ns/op	       0 B/op	       0 allocs/op
-BenchmarkSet-4      	  3000000	         414 ns/op	      48 B/op	       2 allocs/op
-BenchmarkDelete-4   	100000000	        11.6 ns/op	       0 B/op	       0 allocs/op
+BenchmarkNew-8      	  10000000	          188 ns/op	     368 B/op	       5 allocs/op
+BenchmarkGet-8      	 100000000	         18.5 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSet-8      	  10000000	          209 ns/op	      48 B/op	       2 allocs/op
+BenchmarkDelete-8   	1000000000	         3.13 ns/op	       0 B/op	       0 allocs/op
 ```
 
 ## License
