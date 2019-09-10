@@ -63,7 +63,7 @@ func New(ttl time.Duration) *Cache {
 			case <-ticker.C:
 				now := time.Now().UnixNano()
 				c.Map.Range(func(k, v interface{}) bool {
-					if v.(item).expires > now {
+					if v.(item).expires < now {
 						c.Map.Delete(k)
 					}
 					return true
@@ -71,6 +71,5 @@ func New(ttl time.Duration) *Cache {
 			}
 		}
 	}()
-
 	return c
 }
