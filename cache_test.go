@@ -32,10 +32,22 @@ func TestGetSet(t *testing.T) {
 		t.FailNow()
 	}
 
-	time.Sleep(defaultTTL)
+	c.Clear()
 
 	_, found = c.Get("404")
 
+	if found {
+		t.FailNow()
+	}
+
+}
+
+func TestRange(t *testing.T) {
+	c := cache.New(defaultTTL)
+	defer c.Close()
+	c.Set("foo", "bar")
+	time.Sleep(64 * time.Second)
+	_, found := c.Get("foo")
 	if found {
 		t.FailNow()
 	}
