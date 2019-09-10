@@ -17,15 +17,10 @@ type Cache struct {
 	close chan struct{}
 }
 
-// Clear clears all data.
-func (c *Cache) Clear() {
-	c.Map = sync.Map{}
-}
-
 // Close closes the cache.
 func (c *Cache) Close() {
-	c.Map = sync.Map{}
 	c.close <- struct{}{}
+	c.Map = sync.Map{}
 }
 
 // Get gets the value for the key.
@@ -53,7 +48,7 @@ func (c *Cache) Set(key, value interface{}) {
 func New(ttl time.Duration) *Cache {
 	c := &Cache{
 		close: make(chan struct{}),
-		TTL:ttl,
+		TTL:   ttl,
 	}
 
 	go func() {

@@ -32,7 +32,7 @@ func TestGetSet(t *testing.T) {
 		t.FailNow()
 	}
 
-	c.Clear()
+	time.Sleep(defaultTTL)
 
 	_, found = c.Get("404")
 
