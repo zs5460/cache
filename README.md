@@ -14,22 +14,16 @@ go get -u github.com/zs5460/cache
 ## Usage
 
 ```go
-import (
-    "github.com/zs5460/cache"
-)
+c := cache.New(1*time.Minute)
 
-func main() {
-    c := cache.New(1*time.Minute)
+c.Set("foo","bar")
 
-    c.Set("foo","bar")
-
-    v , exist := c.Get("foo")
-    if exist {
-        fmt.Println(v.(string))
-    }
-
-    c.Close()
+v , exist := c.Get("foo")
+if exist {
+    fmt.Println(v.(string))
 }
+
+c.Close()
 ```
 
 ## Benchmark

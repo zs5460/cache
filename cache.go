@@ -52,7 +52,7 @@ func New(ttl time.Duration) *Cache {
 	}
 
 	go func() {
-		ticker := time.NewTicker(1 * time.Minute)
+		ticker := time.NewTicker(30 * time.Second)
 		defer ticker.Stop()
 
 		for {

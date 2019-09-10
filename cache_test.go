@@ -13,29 +13,25 @@ func TestGetSet(t *testing.T) {
 	c := cache.New(defaultTTL)
 	defer c.Close()
 
-	c.Set("Hello", "World")
-	hello, found := c.Get("Hello")
+	c.Set("foo", "bar")
 
+	foo, found := c.Get("foo")
 	if !found {
 		t.FailNow()
 	}
 
-	if hello.(string) != "World" {
+	if foo.(string) != "bar" {
 		t.FailNow()
 	}
 
 	time.Sleep(defaultTTL)
 
-	_, found = c.Get("Hello")
-
+	_, found = c.Get("foo")
 	if found {
 		t.FailNow()
 	}
 
-	time.Sleep(defaultTTL)
-
 	_, found = c.Get("404")
-
 	if found {
 		t.FailNow()
 	}
@@ -43,10 +39,10 @@ func TestGetSet(t *testing.T) {
 }
 
 func TestRange(t *testing.T) {
-	c := cache.New(defaultTTL)
+	c := cache.New(20 * time.Second)
 	defer c.Close()
 	c.Set("foo", "bar")
-	time.Sleep(64 * time.Second)
+	time.Sleep(32 * time.Second)
 	_, found := c.Get("foo")
 	if found {
 		t.FailNow()
@@ -55,17 +51,15 @@ func TestRange(t *testing.T) {
 
 func TestDelete(t *testing.T) {
 	c := cache.New(defaultTTL)
-	c.Set("Hello", "World")
-	_, found := c.Get("Hello")
-
+	c.Set("foo", "bar")
+	_, found := c.Get("foo")
 	if !found {
 		t.FailNow()
 	}
 
-	c.Delete("Hello")
+	c.Delete("foo")
 
-	_, found = c.Get("Hello")
-
+	_, found = c.Get("foo")
 	if found {
 		t.FailNow()
 	}
@@ -84,14 +78,14 @@ func BenchmarkNew(b *testing.B) {
 func BenchmarkGet(b *testing.B) {
 	c := cache.New(defaultTTL)
 	defer c.Close()
-	c.Set("Hello", "World")
+	c.Set("foo", "bar")
 
 	b.ReportAllocs()
 	b.ResetTimer()
 
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			c.Get("Hello")
+			c.Get("foo")
 		}
 	})
 }
@@ -105,7 +99,7 @@ func BenchmarkSet(b *testing.B) {
 
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			c.Set("Hello", "World")
+			c.Set("foo", "bar")
 		}
 	})
 }
@@ -119,7 +113,7 @@ func BenchmarkDelete(b *testing.B) {
 
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			c.Delete("Hello")
+			c.Delete("foo")
 		}
 	})
 }
