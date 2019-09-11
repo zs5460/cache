@@ -7,9 +7,10 @@ import (
 	"github.com/zs5460/cache"
 )
 
-var defaultTTL = 20 * time.Millisecond
+var defaultTTL = 1 * time.Second
 
 func TestGetSet(t *testing.T) {
+
 	c := cache.New(defaultTTL)
 	defer c.Close()
 
@@ -24,7 +25,7 @@ func TestGetSet(t *testing.T) {
 		t.FailNow()
 	}
 
-	time.Sleep(defaultTTL)
+	time.Sleep(defaultTTL + defaultTTL)
 
 	_, found = c.Get("foo")
 	if found {
